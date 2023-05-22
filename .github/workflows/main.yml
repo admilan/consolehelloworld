@@ -1,0 +1,26 @@
+name: dotnet-build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-and-scan:
+    environment: ${{ github.ref_name }}
+    runs-on: [npr]
+    steps:
+      - id: repository
+        uses: ASzc/change-string-case-action@v2
+        with:
+          string: ${{ github.event.repository.name }}
+      - id: branch
+        uses: ASzc/change-string-case-action@v2
+        with:
+          string: ${{ github.ref_name }}
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  
+      - name: Docker Build Package
+        run: |
+          docker build . --file Dockerfile --tag ${{ secrets.MSITE_ACR_SERVER }}/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest
+          docker tag ${{ secrets.MSITE_ACR_SERVER }}/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest ${{ secrets.MSITE_ACR_SERVER }}/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:${{github.run_number}} 
