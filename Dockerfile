@@ -3,7 +3,7 @@ WORKDIR /app
 
 COPY . .
 RUN ls
-RUN dotnet build ./HellowWorldConsoleApp/*.sln -c Release -o /app
+RUN dotnet build ./HellowWorldConsoleApp/*.sln -c Release
     
 RUN addgroup --system --gid 1000 customgroup \
     && adduser --system --uid 1000 --ingroup customgroup --shell /bin/sh customuser
