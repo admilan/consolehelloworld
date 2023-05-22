@@ -1,7 +1,8 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /app
 
-COPY / .
+COPY . .
+RUN ls
 RUN dotnet build "*.sln" -c Release -o /app
     
 RUN addgroup --system --gid 1000 customgroup \
