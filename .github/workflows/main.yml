@@ -6,7 +6,7 @@ on:
 jobs:
   build-and-scan:
     environment: ${{ github.ref_name }}
-    runs-on: [npr]
+    runs-on: [self-hosted]
     steps:
       - id: repository
         uses: ASzc/change-string-case-action@v2
@@ -22,5 +22,6 @@ jobs:
           fetch-depth: 0  
       - name: Docker Build Package
         run: |
-          docker build . --file Dockerfile --tag ${{ secrets.MSITE_ACR_SERVER }}/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest
-          docker tag ${{ secrets.MSITE_ACR_SERVER }}/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest ${{ secrets.MSITE_ACR_SERVER }}/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:${{github.run_number}} 
+          docker build . --file Dockerfile --tag consoleapp
+          #docker build . --file Dockerfile --tag ${{ secrets.MSITE_ACR_SERVER }}/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest
+          #docker tag ${{ secrets.MSITE_ACR_SERVER }}/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest ${{ secrets.MSITE_ACR_SERVER }}/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:${{github.run_number}} 
