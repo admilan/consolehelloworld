@@ -23,47 +23,6 @@ jobs:
       - name: Docker Build Package
         run: |
           docker build . --file Dockerfile --tag consoleapp
-          #docker build . --file Dockerfile --tag ${{ secrets.MSITE_ACR_SERVER }}/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest
-          #docker tag ${{ secrets.MSITE_ACR_SERVER }}/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest ${{ secrets.MSITE_ACR_SERVER }}/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:${{github.run_number}} 
-  second-build:
-    environment: ${{ github.ref_name }}
-    runs-on: [self-hosted]
-    steps:
-      - id: repository
-        uses: ASzc/change-string-case-action@v2
-        with:
-          string: ${{ github.event.repository.name }}
-      - id: branch
-        uses: ASzc/change-string-case-action@v2
-        with:
-          string: ${{ github.ref_name }}
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  
-      - name: Docker Build Package
-        run: |
-          docker build . --file Dockerfile --tag consoleapp
-          #docker build . --file Dockerfile --tag ${{ secrets.MSITE_ACR_SERVER }}/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest
-          #docker tag ${{ secrets.MSITE_ACR_SERVER }}/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest ${{ secrets.MSITE_ACR_SERVER }}/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:${{github.run_number}} 
-  third-build:
-    environment: ${{ github.ref_name }}
-    runs-on: [self-hosted]
-    steps:
-      - id: repository
-        uses: ASzc/change-string-case-action@v2
-        with:
-          string: ${{ github.event.repository.name }}
-      - id: branch
-        uses: ASzc/change-string-case-action@v2
-        with:
-          string: ${{ github.ref_name }}
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  
-      - name: Docker Build Package
-        run: |
-          docker build . --file Dockerfile --tag consoleapp
-          #docker build . --file Dockerfile --tag ${{ secrets.MSITE_ACR_SERVER }}/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest
-          #docker tag ${{ secrets.MSITE_ACR_SERVER }}/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest ${{ secrets.MSITE_ACR_SERVER }}/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:${{github.run_number}} 
+          #docker build . --file Dockerfile --tag localhost:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest
+          #docker tag localhost:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest localhost:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:${{github.run_number}} 
+  
