@@ -22,7 +22,9 @@ jobs:
           fetch-depth: 0  
       - name: Docker Build Package
         run: |
-          docker build . --file Dockerfile --tag consoleapp
-          #docker build . --file Dockerfile --tag localhost:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest
-          #docker tag localhost:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest localhost:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:${{github.run_number}} 
+          #docker build . --file Dockerfile --tag consoleapp
+          docker build . --file Dockerfile --tag localhost:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest
+          docker tag localhost:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest localhost:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:${{github.run_number}} 
+          docker push localhost:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest
+          docker push localhost:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:${{github.run_number}} 
   
