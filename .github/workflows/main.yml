@@ -23,8 +23,8 @@ jobs:
       - name: Docker Build Package
         run: |
           #docker build . --file Dockerfile --tag consoleapp
-          docker build . --file Dockerfile --tag 10.244.0.9:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest
-          docker tag 10.244.0.9:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest 10.244.0.9:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:${{github.run_number}} 
-          #docker push 10.244.0.9:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest
-          #docker push 10.244.0.9:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:${{github.run_number}} 
+          docker build . --file Dockerfile --tag 10.244.0.22:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest
+          docker tag 10.244.0.22:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest 10.244.0.22:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:${{github.run_number}} 
+          docker push 10.244.0.22:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest
+          #docker push 10.244.0.22:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:${{github.run_number}} 
   
