@@ -20,11 +20,17 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0  
+      - name: Docker Login
+        run: |
+          docker login core.harbor.domain --username admin --password Harbor12345
       - name: Docker Build Package
         run: |
           #docker build . --file Dockerfile --tag consoleapp
-          docker build . --file Dockerfile --tag 10.244.0.22:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest
-          docker tag 10.244.0.22:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest 10.244.0.22:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:${{github.run_number}} 
-          docker push 10.244.0.22:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest
-          #docker push 10.244.0.22:5000/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:${{github.run_number}} 
+          docker build . --file Dockerfile --tag core.harbor.domain/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest
+          
+      - name: Docker Push
+        run: |
+          docker tag core.harbor.domain/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest core.harbor.domain/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:${{github.run_number}} 
+          docker push core.harbor.domain/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:latest
+          #docker push core.harbor.domain/${{steps.repository.outputs.lowercase}}/${{steps.branch.outputs.lowercase}}:${{github.run_number}} 
   
